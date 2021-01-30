@@ -11,7 +11,7 @@
       [paginator]="true" [rows]="10" [totalRecords]="totalRecords"  [globalFilterFields]="['OrderID','CompanyName', 'CustomerID']"> -->
 
       <p-table [value]="orders" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
-        currentPageReportTemplate="מציג {first}  עד {last} מתוך {totalRecords} רשומות" [rowsPerPageOptions]="[10,25,50]">
+           (onEditInit)="onEditInit($event)" (onEditComplete)="onEditComplete($event)"   (onEditCancel)="onEditCancel($event)" currentPageReportTemplate="מציג {first}  עד {last} מתוך {totalRecords} רשומות" [rowsPerPageOptions]="[10,25,50]">
       
       <ng-template pTemplate="header">
         <tr>
@@ -29,10 +29,13 @@
             <tr [pEditableRow]="order">
               <td>{{order.orderID}}</td>
               <!-- <td>{{order.companyName}} </td>             -->
-              <td pEditableColumn>
+              <!-- <td pEditableColumn  pEditableColumnField="companyName"> -->
+              
+              <td [pEditableColumn]="order" pEditableColumnField="companyName" [pEditableColumnRowIndex]="index">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
                         <input pInputText type="text" [(ngModel)]="order.companyName">
+                        <p:ajax event="cellEdit" listener="#{OrdersTableComponent.onEditComplete}" update="msg" />
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{order.companyName}}
@@ -55,11 +58,11 @@
                 </p-cellEditor>
             </td>
 
-              <td style="text-align:center">
-                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow value="Edit" (click)="onRowEditInit(order)" class="p-button-rounded p-button-text"></button>
+              <!-- <td style="text-align:center">
+                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" value="Edit" (click)="onRowEditInit(order)" class="p-button-rounded p-button-text"></button>
                 <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(order)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
                 <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(order, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-            </td>
+            </td> -->
            
               
           </tr>

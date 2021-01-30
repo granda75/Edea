@@ -40,6 +40,23 @@ export class OrdersTableComponent implements OnInit
     this.loadOrders();
   }
 
+  onEditInit(event)
+  {
+      debugger;
+      alert("onEditInit");
+  }
+  
+  onEditComplete(event)
+  {
+    debugger;
+    alert("onEditComplete");
+  }
+  onEditCancel(event)
+  {
+    debugger;
+    alert("onEditCancel");
+  }
+
   onRowEditInit(order: Order) {
     debugger;
     this.clonedOrders[order.OrderID] = {...order};
