@@ -1,0 +1,26 @@
+.total
+{
+    width:20em;
+    text-align: right; 
+}
+.total tr { 
+    overflow: hidden;
+    height: 40px;
+    /* white-space: nowrap; */
+}
+.total th 
+{
+  background-color: #EBFF89;
+}
+
+
+.total, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+.total, td {
+  background-color:#D0D0D0;
+}
+
+ 

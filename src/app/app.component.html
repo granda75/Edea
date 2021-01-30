@@ -1,59 +1,9 @@
-<div>
-<p-table [value]="orders" [lazy]="true" (onLazyLoad)="loadOrders($event)"
-    [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [globalFilterFields]="['OrderID','CompanyName', 'CustomerID']">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>OrderID</th>
-        <th>CompanyName</th>
-        <th>CustomerID</th>
-        <th>ShipAddress</th>
-        <th>ShipCity</th>
-        <th>ShipRegion</th>
-        <th>Freight</th>  
-    </tr>
-        <!-- <tr>
-            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
-            <th pSortableColumn="company">Company <p-sortIcon field="company"></p-sortIcon></th>
-            <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
-        </tr> -->
-        <!-- <tr>
-            <th>
-                <p-columnFilter type="text" field="name"></p-columnFilter>
-            </th>
-            <th>
-                <p-columnFilter type="text" field="country.name"></p-columnFilter>
-            </th>
-            <th>
-                <p-columnFilter type="text" field="company"></p-columnFilter>
-            </th>
-            <th>
-                <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
-                            <ng-template let-option pTemplate="item">
-                                <div class="p-multiselect-representative-option">
-                                    <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
-                                    <span class="p-ml-1">{{option.name}}</span>
-                                </div>
-                            </ng-template>
-                        </p-multiSelect>
-                    </ng-template>
-                </p-columnFilter>
-            </th>
-        </tr> -->
-    </ng-template>
-    <ng-template pTemplate="body" let-order>
-        <tr>
-            <td>{{order.OrderID}}</td>
-            <td>{{order.CompanyName}}</td>
-            <td>{{order.CustomerID}}</td>
-            <td>{{order.ShipAddress}}</td>
-            <td>{{order.ShipCity}}</td>
-            <td>{{order.ShipRegion}}</td>
-            <td>{{order.Freight}}</td>
-            
-        </tr>
-    </ng-template>
-</p-table>
-</div>
+
+  <div id="main">
+    <h1>הזמנות</h1>
+  </div>
+
+  <app-orders-table></app-orders-table>
+  
+
+

@@ -8,10 +8,3 @@ export class Order {
       Freight     : number;
 }
 
-// export class City
-// {
-//    Id       : number;
-//    CityName : string; 
-//    Key : string;
-//    LocalizedName : string; 
-// }
