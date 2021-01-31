@@ -8,10 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersTotalComponent implements OnInit {
 
-  // totalOrders: number;
-  // totalShippingCost : number;
-  // averageShippingCost: number;
-
   @Input() totalOrders: number;
   @Input() totalShippingCost: number;
   @Input() averageShippingCost: number;

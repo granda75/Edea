@@ -1,10 +1,10 @@
 export class Order {
-      OrderID     : number;       
-      CompanyName : string;
-      CustomerID  : string;
-      ShipAddress : string;
-      ShipCity    : string;
-      ShipRegion  : string;
-      Freight     : number;
+      orderID     : number;       
+      companyName : string;
+      customerID  : string;
+      shipAddress : string;
+      shipCity    : string;
+      shipRegion  : string;
+      shippingCost     : number;
 }
 

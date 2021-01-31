@@ -11,16 +11,16 @@ import { OrdersService } from '../orders.service';
 })
 export class OrdersTableComponent implements OnInit 
 {
-  title = 'EdeaOrders1';
+  title = 'EdeaOrders';
   loading: boolean;
   first: number;
   rows: number;
   totalRecords: number;
 
+  public order: Order;
   public orders: Order[];
-  public orders2: Order[];
   public ordersData: OrdersData;
-
+  
   clonedOrders: { [s: string]: Order; } = {};
 
   totalOrders: number;
@@ -40,54 +40,42 @@ export class OrdersTableComponent implements OnInit
     this.loadOrders();
   }
 
+  
   onEditInit(event)
   {
-      debugger;
-      alert("onEditInit");
+    this.order = event.data;
+    this.clonedOrders[this.order.orderID] = {...this.order};
   }
   
   onEditComplete(event)
   {
+    if ( this.order.shippingCost < 0 )
+    {
+        alert("עלות משלוח צריך להיות מספר חיובי");  
+        this.order.shippingCost = 0;
+        return;
+    }
+    var strShippingCost = "" + this.order.shippingCost;
+    if ( strShippingCost.length > 2)
+    {
+        alert("עלות משלוח צריך להיות עד 2 ספרות");
+        this.order.shippingCost = 0;
+        return;
+    }
     debugger;
-    alert("onEditComplete");
+    this.totalShippingCost = Number(this.totalShippingCost) - Number(this.clonedOrders[this.order.orderID].shippingCost) + Number(this.order.shippingCost);
+    this.averageShippingCost = this.totalShippingCost/this.orders.length;
+
+    if (this.order.companyName != null && this.order.companyName.length > 30)
+    {
+        alert("שם לקוח צריך להיות עד 30 תווים");
+        this.order.companyName = this.clonedOrders[this.order.orderID].companyName;
+    }
+
   }
   onEditCancel(event)
   {
-    debugger;
-    alert("onEditCancel");
-  }
-
-  onRowEditInit(order: Order) {
-    debugger;
-    this.clonedOrders[order.OrderID] = {...order};
-    alert('Row edit initialized');
-  }
-
-  onRowEditSave(order: Order) {
-    debugger;
-    console.log('Row edit saved');
-    if (order.Freight > 0) 
-    {
-      delete this.clonedOrders[order.OrderID];
-      alert("עידכון הזמנה הצליח");
-      //this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'});
-    }  
-    else 
-    {
-        //this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
-        alert("עלות משלוח לא תקינה");
-    }
-  }
-
-  onRowEditCancel(order: Order, index: number) {
-    console.log('Row edit cancelled');
-    this.orders2[index] = this.clonedOrders[order.OrderID];
-    delete this.orders2[order.OrderID];
-  }
-
-  onEnterCustName()
-  {
-    alert("onEnterCustName");
+    //alert("onEditCancel");
   }
 
   loadOrders()
@@ -95,7 +83,6 @@ export class OrdersTableComponent implements OnInit
     this.ordersService.getOrders().subscribe(data=>{
       this.ordersData = data;
       this.orders = data.ordersList;
-      this.orders2 = data.ordersList;
       this.totalOrders = data.totalOrders;
       this.totalShippingCost = data.totalShippingCost;
       this.averageShippingCost = data.averageShippingCost;
@@ -104,26 +91,5 @@ export class OrdersTableComponent implements OnInit
     });
    
   }
-
-  next() {
-    this.first = this.first + this.rows;
-}
-
-prev() {
-    this.first = this.first - this.rows;
-}
-
-reset() {
-    this.first = 0;
-}
-
-isLastPage(): boolean {
-    return this.orders ? this.first === (this.orders.length - this.rows): true;
-}
-
-isFirstPage(): boolean {
-    return this.orders ? this.first === 0 : true;
-}
-
 
 }

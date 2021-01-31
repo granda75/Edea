@@ -1,41 +1,29 @@
-<div class="container">
-    <div class="row">
- <div class="col-sm-9 col-md-6 col-lg-8" dir="rtl">
-    <!-- <div class="p-mb-3">
-        <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
-        <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
-        <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
-    </div> -->
-    <!-- [lazy]="true" (onLazyLoad)="loadOrders($event)" -->
-  <!-- <p-table [value]="orders" 
-      [paginator]="true" [rows]="10" [totalRecords]="totalRecords"  [globalFilterFields]="['OrderID','CompanyName', 'CustomerID']"> -->
-
-      <p-table [value]="orders" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
-           (onEditInit)="onEditInit($event)" (onEditComplete)="onEditComplete($event)"   (onEditCancel)="onEditCancel($event)" currentPageReportTemplate="מציג {first}  עד {last} מתוך {totalRecords} רשומות" [rowsPerPageOptions]="[10,25,50]">
+  <div dir="rtl">
+    
+  <div id="one">
+   
+  <p-table [value]="orders" dataKey="OrderID" editMode="row" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
+            (onEditInit)="onEditInit($event)" (onEditComplete)="onEditComplete($event)"   (onEditCancel)="onEditCancel($event)"
+            currentPageReportTemplate="מציג {first}  עד {last} מתוך {totalRecords} רשומות" [rowsPerPageOptions]="[10,25,50]">
       
       <ng-template pTemplate="header">
         <tr>
           <th>מזהה הזמנה</th>
           <th>שם לקוח</th>
-          <th>כתובת משלוח</th>
-          <th>עיר משלוח</th>
-          <th>אזור משלוח</th>
+          <th class="hide_address">כתובת משלוח</th>
+          <th class="hide_city">עיר משלוח</th>
+          <th class="hide_region">אזור משלוח</th>
           <th>עלות משלוח</th>  
       </tr>
     </ng-template>
-
-    
-      <ng-template pTemplate="body" let-order let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="order">
+          
+    <ng-template pTemplate="body" let-order let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="order">
               <td>{{order.orderID}}</td>
-              <!-- <td>{{order.companyName}} </td>             -->
-              <!-- <td pEditableColumn  pEditableColumnField="companyName"> -->
-              
-              <td [pEditableColumn]="order" pEditableColumnField="companyName" [pEditableColumnRowIndex]="index">
+              <td [pEditableColumn]="order" pEditableColumnField="companyName">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
                         <input pInputText type="text" [(ngModel)]="order.companyName">
-                        <p:ajax event="cellEdit" listener="#{OrdersTableComponent.onEditComplete}" update="msg" />
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{order.companyName}}
@@ -43,39 +31,29 @@
                 </p-cellEditor>
             </td>
             
-              <td>{{order.shipAddress}}</td>
-              <td>{{order.shipCity}}</td>
-              <td>{{order.shipRegion}}</td>
-              <!-- <td>{{order.freight}}</td> -->
-              <td pEditableColumn>
-                <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="order.freight">
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{order.freight}}
-                    </ng-template>
-                </p-cellEditor>
+              <td class="hide_address">{{order.shipAddress}}</td>
+              <td class="hide_city">{{order.shipCity}}</td>
+              <td class="hide_region">{{order.shipRegion}}</td>
+            
+            <td [pEditableColumn]="order" pEditableColumnField="shippingCost">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" pInputText [(ngModel)]="order.shippingCost"/>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  <span>{{order.shippingCost}}</span>
+                </ng-template>
+              </p-cellEditor>
             </td>
-
-              <!-- <td style="text-align:center">
-                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" value="Edit" (click)="onRowEditInit(order)" class="p-button-rounded p-button-text"></button>
-                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(order)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(order, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-            </td> -->
-           
               
           </tr>
       </ng-template>
   </p-table>
   </div>
 
-<div class="col-sm-3 col-md-6 col-lg-4" dir="rtl" style="float:right;">
+<div id="two" dir="rtl">
     <app-orders-total [totalOrders]="totalOrders" [totalShippingCost]="totalShippingCost" [averageShippingCost]="averageShippingCost">
-
     </app-orders-total>
-    
 </div>
 
-</div>
 </div>

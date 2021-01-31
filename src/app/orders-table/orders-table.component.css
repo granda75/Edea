@@ -1,22 +1,36 @@
-.ui-datatable-odd {
-    background: none repeat scroll 0 0 #0a5dc9;
+#one {
+    float:left; 
+    margin-right:1em;
+    margin-left:1em;
+    width:60em; 
+  }
+  #two { 
+    
+    overflow:hidden;
+    margin-right:1em;
+    /* margin:1em; */
+  }
+
+  @media screen and (max-width: 600px) {
+    #one { 
+     float: none;
+     margin-right:0;
+     width:auto;
+     border:0;
     }
-
-/* .ui-table {
-    .ui-table-tbody {
-        > tr {
-            background: #f0f3f5;
-        }
-
-        > tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-    }
-} */
-
-.p-datatable .p-datatable-tbody > tr:nth-child(even) {
-        background-color: #46109c !important;
    }
+
+@media (max-width:300px) {
+	.hide_address{
+		display:none;
+    }
+    .hide_city{
+		display:none;
+    }
+    .hide_region{
+        display:none;
+    }
+}  
 
 .p-datatable {
     position: relative;
