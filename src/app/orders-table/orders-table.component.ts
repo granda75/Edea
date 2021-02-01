@@ -62,7 +62,7 @@ export class OrdersTableComponent implements OnInit
         this.order.shippingCost = 0;
         return;
     }
-    debugger;
+    
     this.totalShippingCost = Number(this.totalShippingCost) - Number(this.clonedOrders[this.order.orderID].shippingCost) + Number(this.order.shippingCost);
     this.averageShippingCost = this.totalShippingCost/this.orders.length;
 
